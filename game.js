@@ -5,7 +5,7 @@ var p1Actions = [1]
 var p2Actions = [1]
 var turn = 1
 
-window.alert = function(message) {
+function customAlert(message) {
     const alert = document.createElement('div');
     const alertButton = document.createElement('button');
     alertButton.innerText = 'OK';
@@ -121,24 +121,24 @@ async function shootOpp() {
             life1 -= 1
             if (life1 == 0) {
                 deadSound.play()
-                await alert('Player 2 wins!')
+                await customAlert('Player 2 wins!')
                 reset()
             } else {
-                await alert(`${player} loses a life!`)
+                await customAlert(`${player} loses a life!`)
             }
         } else {
             life2 -= 1
             if (life2 == 0) {
                 deadSound.play()
-                await alert('Player 1 wins!')
+                await customAlert('Player 1 wins!')
                 reset()
             } else {
-                await alert(`${player} loses a life!`)
+                await customAlert(`${player} loses a life!`)
             }
         }
     } else{
         blankSound.play()
-        await alert(`Oh no! It was a blank :(`)
+        await customAlert(`Oh no! It was a blank :(`)
         turn = 3 - turn
     }
     display()
@@ -158,25 +158,25 @@ async function shootYou() {
                 life1 -= 1;
                 if (life1 == 0) {
                     deadSound.play();
-                    await alert('Player 2 wins!');
+                    await customAlert('Player 2 wins!');
                     reset();
                 } else {
-                    await alert(`${player} loses a life!`);
+                    await customAlert(`${player} loses a life!`);
                 }
             } else {
                 life2 -= 1;
                 if (life2 == 0) {
                     deadSound.play();
-                    await alert('Player 1 wins!');
+                    await customAlert('Player 1 wins!');
                     reset();
                 } else {
-                    await alert(`${player} loses a life!`);
+                    await customAlert(`${player} loses a life!`);
                 }
             }
             turn = 3 - turn;
         } else {
             blankSound.play();
-            await alert("It's a blank!");
+            await customAlert("It's a blank!");
         }
         display();
     })();
