@@ -6,21 +6,22 @@ var p2Actions = [1]
 var turn = 1
 
 window.alert = function(message) {
+    const alert = document.createElement('div');
+    const alertButton = document.createElement('button');
+    alertButton.innerText = 'OK';
+    alert.classList.add('alert');
+    alertButton.classList.add('alert-button')
+    alert.innerHTML = `<span style="padding: 10px">${message}</span>`;
+    alert.appendChild(alertButton);
+    document.body.appendChild(alert);
     return new Promise((resolve) => {
-        const alert = document.createElement('div');
-        const alertButton = document.createElement('button');
-        alertButton.innerText = 'OK';
-        alert.classList.add('alert');
-        alertButton.classList.add('alert-button')
-        alert.innerHTML = `<span style="padding: 10px">${message}</span>`;
-        alert.appendChild(alertButton);
         alertButton.addEventListener('click', () => {
             alert.remove();
             resolve();
         });
-        document.body.appendChild(alert);
     });
 };
+
 
 
 function display() {
