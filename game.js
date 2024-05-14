@@ -145,38 +145,41 @@ async function shootOpp() {
 }
 
 async function shootYou() {
-    const player = turn === 1 ? 'Player 1' : 'Player 2'
-    const shootSound = document.querySelector('#shootSound')
-    const blankSound = document.querySelector('#blankSound')
-    const deadSound = document.querySelector('#deadSound')
-    const bullet = mag.pop()
-    if (bullet >= 100) {
-        shootSound.play()
-        if (player === 'Player 1') {
-            life1 -= 1
-            if (life1 == 0) {
-                deadSound.play()
-                await alert('Player 2 wins!')
-                reset()
+    (async () => {
+        const player = turn === 1 ? 'Player 1' : 'Player 2';
+        const shootSound = document.querySelector('#shootSound');
+        const blankSound = document.querySelector('#blankSound');
+        const deadSound = document.querySelector('#deadSound');
+        const bullet = mag.pop();
+
+        if (bullet >= 100) {
+            shootSound.play();
+            if (player === 'Player 1') {
+                life1 -= 1;
+                if (life1 == 0) {
+                    deadSound.play();
+                    await alert('Player 2 wins!');
+                    reset();
+                } else {
+                    await alert(`${player} loses a life!`);
+                }
             } else {
-                await alert(`${player} loses a life!`)
+                life2 -= 1;
+                if (life2 == 0) {
+                    deadSound.play();
+                    await alert('Player 1 wins!');
+                    reset();
+                } else {
+                    await alert(`${player} loses a life!`);
+                }
             }
+            turn = 3 - turn;
         } else {
-            life2 -= 1
-            if (life2 == 0) {
-                deadSound.play()
-                await alert('Player 1 wins!')
-                reset()
-            } else {
-                await alert(`${player} loses a life!`)
-            }
+            blankSound.play();
+            await alert("It's a blank!");
         }
-        turn = 3 - turn
-    } else {
-        blankSound.play()
-        await alert("Its a blank!")
-    }
-    display()
+        display();
+    })();
 }
 
 async function checkNext() {
