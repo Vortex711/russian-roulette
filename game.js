@@ -189,6 +189,6 @@ async function checkNext() {
         p2Actions[0] -= 1
     }
     const checked = mag[mag.length - 1] >= 100 ? 'live' : 'blank'
-    await alert(`The bullet is ${checked}`) 
+    await customAlert(`The bullet is ${checked}`) 
     display()
 }
