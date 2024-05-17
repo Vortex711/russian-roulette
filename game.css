@@ -40,8 +40,9 @@ body, html {
 
 .alert {
     position: fixed;
-    top: 200px;
-    left: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 275px;
     border-radius: 10px;
     border: 1px solid black;    
