@@ -249,7 +249,7 @@ async function wearVest() {
         p2Actions[1] -= 1
         vest[1] = 2
     }
-    await customAlert("Vest is on!")
+    await customAlert("Vest is on!");
     changeTurn()
     display()
 }
