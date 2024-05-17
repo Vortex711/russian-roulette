@@ -39,11 +39,11 @@ body, html {
 }
 
 .alert {
-    position: fixed;    
-    top: 39vh;
-    left: 85vh;
-    width: 38vh;
-    border-radius: 2vh;
+    position: fixed;
+    top: 200px;
+    left: 40%;
+    width: 275px;
+    border-radius: 10px;
     border: 1px solid black;    
     box-shadow: 0 10px 5px 0 #00000022;
     text-align: center;
