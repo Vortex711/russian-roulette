@@ -4,6 +4,7 @@ var life2 = 0
 var p1Actions = [1, 1]
 var p2Actions = [1, 1]
 var turn = 1
+var vest = [0, 0]
 
 function customAlert(message) {
     const alert = document.createElement('div');
@@ -22,9 +23,17 @@ function customAlert(message) {
     });
 };
 
+function changeTurn() {
+    turn = 3 - turn
+    if (turn === 1 && vest[0] > 0) {
+        vest[0] -= 1
+    } 
+    if (turn === 2 && vest[1] > 0) {
+        vest[1] -= 1
+    }
+}
 
-
-function display() {
+async function display() {
     const lives = document.querySelector('.lives')
     const start = document.querySelector('.start')
     const buttons = document.querySelector('.buttons')
@@ -43,8 +52,19 @@ function display() {
         } else {
             action[i].disabled = false
         }
+    }        
+    if(vest[0] > 0) {
+        lives1.style.border = '3px solid black'
+    } else {
+        lives1.style.border = 'none'
     }
-        
+
+    if(vest[1] > 0) {
+        lives2.style.border = '3px solid black'
+    } else {
+        lives2.style.border = 'none'
+    }
+
     revolver.src = turn === 1 ? 'images/revolver-right.png' : 'images/revolver-left.png'
     const playerName = turn === 1 ? 'Player 1' : 'Player 2'
     player.innerHTML = `${playerName}'s Turn`
@@ -79,6 +99,7 @@ function reset() {
     life1 = life2 = 0
     p1Actions = [1, 1]
     p2Actions = [1, 1]
+    vest = [0, 0]
     mag = []
     turn = 1
 }
@@ -89,9 +110,8 @@ function init() {
     const liveTB = document.querySelector('#live')
     const blank = parseInt(blankTB.value, 10)
     const live = parseInt(liveTB.value, 10)
-    console.log('Blank: ' + blank + ' Live: ' + live)
     if (isNaN(blank) || isNaN(live)) {
-        customAlert("Please enter numbers!")
+        customAlert("Please enter valid input!")
         blankTB.value = ""
         liveTB.value = ""
         return
@@ -116,8 +136,6 @@ function init() {
             }
         }
     }
-    console.log(order)
-    console.log(mag)
     display()
 }
 
@@ -130,28 +148,38 @@ async function shootOpp() {
     if (bullet >= 100) {
         shootSound.play()
         if (player === 'Player 1') {
-            life1 -= 1
-            if (life1 == 0) {
-                deadSound.play()
-                await customAlert('Player 2 wins!')
-                reset()
+            if (vest[0] > 0) {
+                vest[0] = 0 
+                await customAlert(`Player 1's vest destroyed!`)
             } else {
-                await customAlert(`${player} loses a life!`)
+                life1 -= 1
+                if (life1 == 0) {
+                    deadSound.play()
+                    await customAlert('Player 2 wins!')
+                    reset()
+                } else {
+                    await customAlert(`${player} loses a life!`)
+                }
             }
         } else {
-            life2 -= 1
-            if (life2 == 0) {
-                deadSound.play()
-                await customAlert('Player 1 wins!')
-                reset()
+            if (vest[1] > 0) {
+                vest[1] = 0
+                await customAlert(`Player 2's vest destroyed!`)
             } else {
-                await customAlert(`${player} loses a life!`)
+                life2 -= 1
+                if (life2 == 0) {
+                    deadSound.play()
+                    await customAlert('Player 1 wins!')
+                    reset()
+                } else {
+                    await customAlert(`${player} loses a life!`)
+                }
             }
         }
     } else{
         blankSound.play()
         await customAlert(`Oh no! It was a blank :(`)
-        turn = 3 - turn
+        changeTurn()
     }
     display()
 }
@@ -166,25 +194,35 @@ async function shootYou() {
     if (bullet >= 100) {
         shootSound.play();
         if (player === 'Player 1') {
-            life1 -= 1;
-            if (life1 == 0) {
-                deadSound.play();
-                await customAlert('Player 2 wins!');
-                reset();
+            if (vest[0] > 0) {
+                vest[0] = 0
+                await customAlert(`Player 1's vest destroyed!`)
             } else {
-                await customAlert(`${player} loses a life!`);
+                life1 -= 1;
+                if (life1 == 0) {
+                    deadSound.play();
+                    await customAlert('Player 2 wins!');
+                    reset();
+                } else {
+                    await customAlert(`${player} loses a life!`);
+                }
             }
         } else {
-            life2 -= 1;
-            if (life2 == 0) {
-                deadSound.play();
-                await customAlert('Player 1 wins!');
-                reset();
+            if (vest[1] > 0) {
+                vest[1] = 0
+                await customAlert(`Player 2's vest destroyed!`)
             } else {
-                await customAlert(`${player} loses a life!`);
+                life2 -= 1;
+                if (life2 == 0) {
+                    deadSound.play();
+                    await customAlert('Player 1 wins!');
+                    reset();
+                } else {
+                    await customAlert(`${player} loses a life!`);
+                }
             }
         }
-        turn = 3 - turn;
+        changeTurn()
     } else {
         blankSound.play();
         await customAlert("It's a blank!");
@@ -203,19 +241,15 @@ async function checkNext() {
     display()
 }
 
-async function getProbability() {
+async function wearVest() {
     if (turn === 1) {
         p1Actions[1] -= 1
+        vest[0] = 2
     } else {
         p2Actions[1] -= 1
+        vest[1] = 2
     }
-    let live = 0
-    mag.forEach((bullet) => {
-        if (bullet >= 100) {
-            live++
-        }
-    })
-    const liveProbability = (live / mag.length * 100).toFixed(2)
-    await customAlert(`Chance for a live bullet is ${liveProbability}%`);
+    await customAlert("Vest is on!")
+    changeTurn()
     display()
 }

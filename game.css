@@ -83,6 +83,11 @@ body, html {
     justify-content: space-between;
 }
 
+.life1, .life2 {
+    padding: 5px 5px;
+    border-radius: 10px;
+}
+
 .images {
     display: flex;
     justify-content: center;
