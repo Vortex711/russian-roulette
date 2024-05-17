@@ -1,8 +1,8 @@
 var mag = []
 var life1 = 0
 var life2 = 0
-var p1Actions = [1]
-var p2Actions = [1]
+var p1Actions = [1, 1]
+var p2Actions = [1, 1]
 var turn = 1
 
 function customAlert(message) {
@@ -32,16 +32,19 @@ function display() {
     const revolver = document.querySelector('.revolver')
     const lives1 = document.querySelector('.life1')
     const lives2 = document.querySelector('.life2')
-    const check = document.querySelector('#check')
+    const action = document.querySelectorAll('.action')
     if (mag.length === 0) {
         reset()
         return
     }
-    if (turn === 1 && p1Actions[0] === 0 || turn === 2 && p2Actions[0] === 0) {
-        check.disabled = true
-    } else {
-        check.disabled = false
+    for(var i = 0; i < action.length; i++) {
+        if (turn === 1 && p1Actions[i] === 0 || turn === 2 && p2Actions[i] === 0) {
+            action[i].disabled = true
+        } else {
+            action[i].disabled = false
+        }
     }
+        
     revolver.src = turn === 1 ? 'images/revolver-right.png' : 'images/revolver-left.png'
     const playerName = turn === 1 ? 'Player 1' : 'Player 2'
     player.innerHTML = `${playerName}'s Turn`
@@ -74,8 +77,8 @@ function reset() {
     buttons.style.display = 'none'
     lives.style.display = 'none'
     life1 = life2 = 0
-    p1Actions = [1]
-    p2Actions = [1]
+    p1Actions = [1, 1]
+    p2Actions = [1, 1]
     mag = []
     turn = 1
 }
@@ -197,5 +200,22 @@ async function checkNext() {
     }
     const checked = mag[mag.length - 1] >= 100 ? 'live' : 'blank'
     await customAlert(`The bullet is ${checked}`);
+    display()
+}
+
+async function getProbability() {
+    if (turn === 1) {
+        p1Actions[1] -= 1
+    } else {
+        p2Actions[1] -= 1
+    }
+    let live = 0
+    mag.forEach((bullet) => {
+        if (bullet >= 100) {
+            live++
+        }
+    })
+    const liveProbability = (live / mag.length * 100).toFixed(2)
+    await customAlert(`Chance for a live bullet is ${liveProbability}%`);
     display()
 }

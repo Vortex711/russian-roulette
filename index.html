@@ -10,8 +10,8 @@
     <div class="container">
         <h1>Russian Roulette</h1>
         <div class="start">
-            Blank bullets: <input id="blank" placeholder="Eg: 4">
-            Live bullets: <input id="live" placeholder="Eg: 4">
+            Blank bullets: <input id="blank" placeholder="Eg: 8">
+            Live bullets: <input id="live" placeholder="Eg: 5">
             <div>
                 <button class="start-button" onclick="init()">Start</button>
             </div>
@@ -32,7 +32,8 @@
                 <button class="shoot" onclick="shootYou()">Shoot Yourself</button>
             </div>
             <div class="actions">
-                <button class="check" id="check" onclick="checkNext()">Check</button>
+                <button class="action" onclick="checkNext()">Check</button>
+                <button class="action" onclick="getProbability()">Probability</button>
             </div>
         </div>
     </div>
