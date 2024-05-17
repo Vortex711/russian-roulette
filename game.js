@@ -69,7 +69,7 @@ function reset() {
     revolver.src = 'images/revolver-right.png'
     lives1.textContent = ''
     lives2.textContent = ''
-    start.style.display = 'block'
+    start.style.display = 'flex'
     player.style.display ='none'
     buttons.style.display = 'none'
     lives.style.display = 'none'
@@ -82,8 +82,17 @@ function reset() {
 
 function init() {
     const spinSound = document.querySelector('#spinSound')
-    const blank = document.querySelector('#blank').value
-    const live = document.querySelector('#live').value
+    const blankTB = document.querySelector('#blank')
+    const liveTB = document.querySelector('#live')
+    const blank = parseInt(blankTB.value, 10)
+    const live = parseInt(liveTB.value, 10)
+    console.log('Blank: ' + blank + ' Live: ' + live)
+    if (isNaN(blank) || isNaN(live)) {
+        customAlert("Please enter numbers!")
+        blankTB.value = ""
+        liveTB.value = ""
+        return
+    }
     spinSound.play()
     life1 = life2 = Math.round(live / 2) 
     const order = {}
