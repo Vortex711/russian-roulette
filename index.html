@@ -9,11 +9,67 @@
 <body>
     <div class="container">
         <h1>Russian Roulette</h1>
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <p><b>Objective:</b>
+                <br>
+                Survive the game by keeping your lives while trying to deplete the lives of your opponent.
+                <br><br>
+                <b>Setup:</b>
+                <br>
+                Player 1 and Player 2 start with an equal number of lives (<span class="life1">&hearts;&hearts;</span>).<br>
+                A revolver with entered number of blanks and live bullets is used.<br>
+                The game initializes by spinning the chamber and randomly placing the bullets.<br><br>
+                
+                <b>Start the Game:</b><br>
+                
+                Enter the number of blanks and live bullets when prompted.<br>
+                Click the <button class="start-button">Start</button> button to initialize the game.<br><br>
+
+                <b>Player's Turn:</b><br>
+                
+                The game indicates whose turn it is by displaying Player 1's Turn or Player 2's Turn.<br>
+                Players have two main actions:<button class="shoot-instructions">Shoot Opponent</button> and <button class="shoot-instructions">Shoot Yourself</button><br><br>
+
+                <b>Shoot Opponent:</b><br>
+                
+                Click <button class="shoot-instructions">Shoot Opponent</button> button to attempt shooting the opponent.<br>
+                If a blank bullet is fired, the turn passes to the next player.<br>
+                If a live bullet is fired, the opponent loses a life.<br>
+                If the opponent is wearing a vest, the vest gets destroyed instead of losing a life. Each player has one vest.<br><br>
+
+                <b>Shoot Yourself:</b><br>
+                
+                Click <button class="shoot-instructions">Shoot Yourself</button> to attempt shooting yourself.<br>
+                If a blank bullet is fired, you survive, and you get an extra turn.<br>
+                If a live bullet is fired, you lose a life.<br>
+                If you are wearing a vest, the vest gets destroyed instead of losing a life.<br><br>
+                
+                <b>Special Actions:</b><br>
+
+                <i>(Can only be used once!)</i><br>
+                <button class="action">Check</button>: Each player can use the Check Next Bullet action once per game to check if the next bullet is a blank or live. This does not change the order of the bullets.<br>
+                <button class="action">Vest</button>: Each player starts with a vest that can absorb one live bullet. Once used, it is destroyed. It can shield you for the opponent's next 2 turns. <br><br>
+                
+                <b>Winning the Game:</b><br>
+                
+                The game continues until one player loses all their lives.<br>
+                The player who still has lives left is declared the winner.<br><br>
+
+                <b>Notes:</b><br>
+                
+                The game involves random chance, strategy, and a bit of luck.<br>
+                Use the vest wisely as it can be the difference between winning and losing.<br>
+                Enjoy the game and may the odds be ever in your favor!</p>
+        </div>
         <div class="start">
             Blank bullets: <input id="blank" placeholder="Eg: 8">
             Live bullets: <input id="live" placeholder="Eg: 5">
             <div>
                 <button class="start-button" onclick="init()">Start</button>
+            </div>
+            <div>
+                <button class="instructions-button" onclick="showInstructions()">Instructions</button>
             </div>
         </div>
         <div class="lives">

@@ -23,6 +23,19 @@ function customAlert(message) {
     });
 };
 
+function showInstructions() {   
+    const instructions = document.querySelector('.instructions');
+    const alertButton = document.createElement('button');
+    alertButton.classList.add('alert-button');
+    alertButton.innerText = 'OK';
+    instructions.append(alertButton);
+    instructions.style.display = 'flex';
+    alertButton.addEventListener('click', () => {
+        alertButton.remove()
+        instructions.style.display= 'none'
+    });
+}
+
 function changeTurn() {
     turn = 3 - turn;
     if (turn === 1 && vest[0] > 0) {
