@@ -107,6 +107,11 @@ body, html {
     border-radius: 10px;
 }
 
+.life-instructions {
+    color: red;
+    padding: 0px 0px;
+}
+
 .images {
     display: flex;
     justify-content: center;
